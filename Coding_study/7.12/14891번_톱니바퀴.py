@@ -1,3 +1,4 @@
+
 def clock(i):
     gear_flag[i] = True
     tmp_gear = gear[i][:]
