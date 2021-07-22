@@ -45,8 +45,10 @@ while 1:
             pc = p
 
         else:
-            print(adder, "HTL")
 
+            print(adder, "HTL")
+        print(adder)
 
     except EOFError:
+        print(adder)
         exit()
