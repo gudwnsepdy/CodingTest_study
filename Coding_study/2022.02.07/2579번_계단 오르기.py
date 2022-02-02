@@ -1,17 +1,19 @@
 n = int(input())
-l = [0]
-d = [0 for _ in range(n+1)]
+l = []
+d = [0 for _ in range(n)]
 for _ in range(n):
     l.append(int(input()))
-d[1] = l[1]
-for i in range(n + 1):
-    if d[i-1] == d[i-2]:
-        d[i] = max((l[i] + d[i-1]), (l[i] + d[i-2]))
-    else:
-        if i < 3:
-            d[i] = max((l[i] + d[i - 1]), (l[i] + d[i - 2]))
-        else:
-            d[i] = d[i-2] + l[i]
+if n == 1:
+    print(l[0])
+    exit()
+if n == 2:
+    print(l[0] + l[1])
+    exit()
+d[0] = l[0]
+d[1] = max(l[0] + l[1], l[1])
+d[2] = max(l[0] + l[2], l[1] + l[2])
 
-print(d)
+for i in range(3, n):
+    d[i] = max(d[i - 2] + l[i], d[i - 3] + l[i - 1] + l[i])
+
 print(d[-1])
