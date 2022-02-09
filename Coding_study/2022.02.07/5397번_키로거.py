@@ -1,28 +1,29 @@
+from collections import deque
 t = int(input())
+right = deque()
+left = deque()
 
 for _ in range(t):
-    cursor = 0
+    right = deque()
+    left = deque()
+
     s = str(input())
-    res = []
+
     for c in s:
         if c == "<":
-            cursor -= 1
-            if cursor < 0:
-                cursor = 0
+            if left:
+                right.appendleft(left.pop())
         elif c == ">":
-            if cursor < len(res):
-                cursor += 1
+            if right:
+                left.append(right.popleft())
         elif c == "-":
-            if cursor == 0:
-                continue
-            # del res[cursor - 1]
-            res = res[:cursor - 1] + res[cursor:]
-            cursor -= 1
+            if left:
+                left.pop()
         else:
-            # res.append(c)
-            res = res[:cursor] + [c] + res[cursor:]
-            if cursor < len(res):
-                cursor += 1
+            left.append(c)
+
+    res = left + right
+
     for i in res:
         print(i, end="")
     print()
