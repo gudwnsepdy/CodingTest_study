@@ -1,23 +1,21 @@
-n = int(input())
+import sys
 
-for _ in range(n):
-    t = input()
-    a, b = map(int, input().split())
-    graph = []
+front = list(sys.stdin.readline())
+back = []
 
-    for i in range(a):
-        graph.append(list(input().strip()))
+m = int(sys.stdin.readline())
 
-    cnt = 0
-    # print(graph)
-    for i in range(a):
-        for j in range(b):
-            if graph[i][j] == "o":
-                if graph[i][j - 1] == ">" and graph[i][j + 1] == "<" and j - 1 >= 0 and j + 1 < b:
-                    cnt += 1
+for _ in range(m):
+    cmd = sys.stdin.readline().split()
+    if len(front)>0 and cmd[0]=='L':
+        back.append(front[len(front)-1])
+        front.pop()
+    elif len(back)>0 and cmd[0]=='D':
+        front.append(back[len(back)-1])
+        back.pop()
+    elif len(front)>0 and cmd[0]=='B':
+        front.pop()
+    elif cmd[0]=='P':
+        front.append(cmd[1])
 
-                elif graph[i - 1][j] == "v" and graph[i + 1][j] == "^" and i + 1 < a and i - 1 >= 0:
-                    cnt += 1
-
-    print(cnt)
-
+print(''.join(front+list(reversed(back))))
